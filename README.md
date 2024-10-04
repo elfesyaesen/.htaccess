@@ -1,44 +1,40 @@
-**htaccess Configuration for a RESTful API**
+### ** Htaccess Dosyasının Açıklaması:**
 
-This `.htaccess` file provides a basic configuration for a RESTful API, optimizing performance and security.
+* **Seçenek 1:** RESTful API için temel .htaccess yapılandırması. Temiz URL'ler, güvenlik başlıkları ve yönlendirme kuralları içerir.
+* **Seçenek 2:** Apache sunucusu için güvenlik ve performans iyileştirmeleri sağlayan .htaccess dosyası. Temiz URL'ler, yönlendirmeler ve güvenlik başlıkları içerir.
 
-### **Key Features**
+```
+Bu .htaccess dosyası, bir RESTful API için özel olarak tasarlanmıştır ve aşağıdaki özellikleri içerir:
 
-* **Clean URLs:** Removes trailing slashes from URLs for better SEO and user experience.
-* **Front Controller Routing:** Routes all requests to a single index.php file for centralized routing.
-* **Directory Listings Prevention:** Disables directory listings for security reasons.
-* **No-Referrer-Header:** Prevents the browser from sending the referrer header to protect user privacy.
-* **MIME Type Detection Suppression:** Prevents browsers from sniffing MIME types for unknown content, reducing the risk of security vulnerabilities.
-* **FLOC Prevention:** Disables FLOC (Federated Learning of Cohorts), a Google tracking technology.
+* **Temiz URL'ler:** Çirkin URL'leri daha okunaklı hale getirerek SEO'yu iyileştirir ve kullanıcı deneyimini artırır.
+* **Güvenlik Başlıkları:** XSS ve diğer güvenlik açıklarına karşı koruma sağlar.
+* **Yönlendirme Kuralları:** Tüm istekleri tek bir giriş noktasına yönlendirerek uygulamanın yapısını basitleştirir.
+* **Performans Optimizasyonu:** Gereksiz dosya listelemelerini engeller ve sunucu kaynaklarını daha verimli kullanır.
 
-### **Configuration Details**
+**Ana Özellikler:**
 
-**Rewrite Rules:**
+* Trailing slash'ları kaldırır
+* Tüm istekleri index.php'ye yönlendirir
+* Directory listing'i devre dışı bırakır
+* Güvenlik başlıkları ekler (No-Referrer, X-Content-Type-Options, Permissions-Policy)
 
-* **Trailing Slashes:** Redirects URLs with trailing slashes to their equivalent without trailing slashes.
-* **Front Controller:** Routes all requests to `index.php` and passes the requested path as a query parameter.
+**Kullanım:**
 
-**Security Headers:**
+1. Bu dosyayı projenizin kök dizinine yerleştirin.
+2. Apache sunucunuzda mod_rewrite ve mod_headers modüllerinin aktif olduğundan emin olun.
+3. RewriteBase direktifi ile API'nizin temel URL'sini belirtin.
 
-* **No-Referrer-Header:** Prevents the browser from sending the referrer header to protect user privacy.
-* **X-Content-Type-Options:** Prevents browsers from sniffing MIME types for unknown content.
-* **Permissions-Policy:** Disables FLOC.
+**Dikkat:**
 
-**Other Options:**
+* Options +FollowSymlinks satırı bazı durumlarda sorunlara neden olabilir. Gerekirse bu satırı yorum satırı haline getirin.
 
-* **Directory Listings:** Disables directory listings to prevent sensitive information from being exposed.
-* **FollowSymlinks:** Enables following symbolic links. **Note:** This option can sometimes cause issues if not configured correctly. You may need to comment it out if it causes errors.
+**Ek Bilgiler:**
 
-### **Usage**
+* **mod_rewrite:** Apache'nin URL'leri yeniden yazma özelliğini sağlayan modülüdür.
+* **mod_headers:** Apache'ye HTTP başlıkları ekleme özelliği kazandıran modüldür.
+* **XSS:** Cross-site scripting, web sitelerine kötü amaçlı kod enjekte etme yöntemi.
+* **FLOC:** Federated Learning of Cohorts, Google'ın kullanıcıları takip etmek için kullandığı bir teknolojidir.
 
-1. Place this `.htaccess` file in the root directory of your API project.
-2. Ensure that Apache's `mod_rewrite` and `mod_headers` modules are enabled.
-3. Adjust the `RewriteBase` directive to match the base URL of your API.
+**Bu .htaccess dosyasını kullanarak API'niz için daha güvenli ve performanslı bir ortam oluşturabilirsiniz.**
+```
 
-### **Additional Considerations**
-
-* For more advanced routing or security features, consider using a PHP routing library or framework.
-* If you're using a caching layer, ensure that it's compatible with the rewrite rules in this file.
-* Regularly review and update your `.htaccess` file as your API evolves.
-
-**By following these guidelines, you can create a more secure and efficient RESTful API.**
